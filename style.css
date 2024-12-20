@@ -6,6 +6,7 @@ body{
 		margin: 0 0 0 0;
 		text-decoration: underline;
 		text-decoration-style: solid;
+		border: 2px solid #ffffff;
 	}
 	h3{
 		text-decoration: underline;
