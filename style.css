@@ -32,7 +32,8 @@ body{
 		right: 3px;
 		display: flex;
 		gap: 20px;
-		background-color:red
+		background-color:red;
+		justify-content:space-evenly;
 	}
 	header nav li:hover{
 		text-decoration:underline;
