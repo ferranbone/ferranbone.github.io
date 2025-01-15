@@ -59,14 +59,18 @@
 				console.log("El numero debe ser 100 o menor);
 				return;
 			}
+			let resultado = document.getElementById("resultado");
+
+			let text = "";
+			
 			if (valor > numero_random){
-				console.log("El numero a adivinar es menor que "+valor);
+				text = "El numero a adivinar es menor que "+valor;
 			}
 			else if(valor < numero_random){
-				console.log("El numero a adivinar es mayor que "+valor);
+				text = "El numero a adivinar es mayor que "+valor;
 			}
 			else {
-				console.log("Has ganado");
+				text = "Has ganado";
 			}
 		
 	</script>
