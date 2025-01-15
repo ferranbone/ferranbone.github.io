@@ -49,6 +49,8 @@
 		console.log("El numero a adivinar es: "+numero_random);
 
 		let info = "Introduce un numero entre el "+numero_min+" y el "+numero_max+" para adivinar";
+
+		//document.getElementById("info").innerHTML = info;
 		
 		function check_numero ()
 		{
@@ -64,7 +66,6 @@
 				resultado.value = "<strong>El numero debe ser 100 o menor</strong>";
 				return;
 			}
-			let resultado = document.getElementById("resultado");
 
 			let text = "";
 			
