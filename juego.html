@@ -43,15 +43,15 @@
 	<title>Aficiones</title>
 	<script>
 		let numero_random = Math.floor(Math.random()*100) + 1;
-
+		let resultado = document.getElementById("resultado);
 		console.log("El numero a adivinar es: "+numero_random);
 		
 		function check_numero ()
 		{
 		//console.log("Numero!!!");
 		 let valor= document.getElementById("juego_numero").value;
-
-			if (valor<11){
+	
+			if (valor<1){
 				console.log("El numero debe ser 1 mayor o menor);
 				return;
 			}
