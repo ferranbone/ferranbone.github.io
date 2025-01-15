@@ -55,9 +55,18 @@
 				console.log("El numero debe ser 1 mayor o menor
 				return;
 			}
-			if (valor>100){
+			else if (valor>100){
 				console.log("El numero debe ser 100 o menor);
 				return;
+			}
+			if (valor > numero_random){
+				console.log("El numero a adivinar es menor que "+valor);
+			}
+			else if(valor < numero_random){
+				console.log("El numero a adivinar es mayor que "+valor);
+			}
+			else {
+				console.log("Has ganado");
 			}
 		
 	</script>
