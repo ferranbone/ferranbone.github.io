@@ -42,7 +42,10 @@
 	</style>
 	<title>Aficiones</title>
 	<script>
-		let numero_random = Math.floor(Math.random()*100) + 1;
+		let numero_min = 1;
+		let numero_max = 100;
+		
+		let numero_random = Math.floor(Math.random()*numero_max) + numero_min;
 		let resultado = document.getElementById("resultado");
 		console.log("El numero a adivinar es: "+numero_random);
 		
