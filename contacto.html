@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html>
+	<script>
+        function verformulario() {
+            let name = document.getElementById("nombre").value;
+            let nacimiento = document.getElementById("nacimiento").value;
+            let email = document.getElementById("email").value;
+            let phone = document.getElementById("telefono").value;
+            let color = document.getElementById("color").value;
+            let message = document.getElementById("mensaje").value;
+
+            console.log("Formulario enviado:");
+            console.log("Nombre: ", nombre);
+            console.log("Fecha de nacimiento: ", nacimiento);
+            console.log("Email: ", email);
+            console.log("Teléfono: ", telefono);
+            console.log("Color favorito: ", color);
+            console.log("Mensaje: ", mensaje);
+        }
+    </script>
 <head>
 	<title>Contacto</title>
 	<link rel="stylesheet" href="style.css" />
@@ -33,7 +51,7 @@
 		<input type="color" id="color" name="color">
 		<label fot="mensaje">Mensaje*</label>
 		<textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-		<button type="submit">Enviar</button>
+		<button type="button" onclick=">Enviar</button>
 </main>
 	<footer>
 		<p>Copyright (c) 2024-2077</p>
