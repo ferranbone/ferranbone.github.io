@@ -11,13 +11,11 @@ body {
 
 body.navidad {
     background-color: #f1f1f1;
-    color: #084c08;
     background-size: cover;
 }
 
 body.navidad header {
     background-color: rgba(255, 0, 0, 0.8);
-    color: #fff;
     text-shadow: 2px 2px #4caf50;
     border-bottom: 5px solid #084c08;
     padding: 20px;
@@ -26,7 +24,6 @@ body.navidad header {
 
 body.navidad footer {
     background-color: #d1f0d1;
-    color: #084c08;
     text-align: center;
     border-top: 5px dashed #c70039;
     padding: 20px;
