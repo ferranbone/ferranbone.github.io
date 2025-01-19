@@ -1,18 +1,15 @@
-/* General: Resetear márgenes y padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fondo con gradiente suave */
 body {
     background: linear-gradient(135deg, #ff6a00, #ee0979);
     font-family: 'Arial', sans-serif;
     color: #fff;
 }
 
-/* Encabezado principal */
 header {
     text-align: center;
     padding: 20px;
@@ -24,7 +21,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-/* Estilo de los encabezados secundarios */
 h2 {
     font-size: 2rem;
     margin-bottom: 10px;
@@ -35,7 +31,6 @@ h2 {
     display: inline-block;
 }
 
-/* Menú de navegación: Estilo del desplegable */
 header nav details {
     position: absolute;
     top: 3px;
@@ -74,32 +69,27 @@ header nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Sección principal */
 main {
     padding: 40px 20px;
     text-align: center;
 }
 
-/* Títulos de la sección */
 .subtitle {
     font-size: 1.2rem;
     font-weight: 400;
     color: #fff;
 }
 
-/* Imágenes con estilo centrado */
 main img {
     margin: 20px 0;
     border-radius: 10px;
 }
 
-/* Estilo de los párrafos */
 p {
     font-size: 1.2rem;
     margin: 15px 0;
 }
 
-/* Estilo del pie de página */
 footer {
     padding: 10px;
     text-align: center;
@@ -111,7 +101,6 @@ footer p {
     color: #fff;
 }
 
-/* Lista sin estilo */
 ul {
     list-style-type: none;
 }
@@ -121,13 +110,11 @@ ul li {
     margin: 10px 0;
 }
 
-/* Efecto hover sobre los elementos del menú */
 header nav li:hover {
     text-decoration: underline;
     transform: scale(1.1);
 }
 
-/* Transiciones suaves */
 a {
     transition: color 0.3s ease, transform 0.3s ease;
 }
