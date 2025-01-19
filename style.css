@@ -10,12 +10,12 @@ body {
 }
 
 body.navidad {
-    background-image: url('navidad.webp');
     background-color: #f1f1f1;
     background-size: cover;
 }
 
 body.navidad header {
+    background-image: url('navidad.webp');
     background-color: rgba(255, 0, 0, 0.8);
     text-shadow: 2px 2px #4caf50;
     border-bottom: 5px solid #084c08;
