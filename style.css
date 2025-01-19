@@ -1,64 +1,138 @@
-body{
-		margin: 0 0 0 0;
-		padding: 0 0 0 0;
-		background: linear-gradient(135deg, #ff6a00, #ee0979);}
-	h2{
-		margin: 0 0 0 0;
-		text-decoration: underline;
-		text-decoration-style: solid;
-		border: 2px solid #ffffff;
-	}
-	h3{
-		text-decoration: underline;
-		text-decoration-style: dashed;
-	}
-	p{
-		margin-bottom: 0;
-	}
-	header h1{
-		margin: 0 0 0 0;
-	}
-	header h2{
-		margin: 0 0 0 0;
-	}
-	header p{
-		text-align:center;
-	}
-	header nav details{
-		position: absolute;
-		margin: 0;
-		padding: 0;
-		top: 3px;
-		right: 3px;
-		display: flex;
-		gap: 20px;
-		background-color:red;
-		justify-content:space-evenly;
-	}
-	header nav li:hover{
-		text-decoration:underline;
-	}
-	main{
-		padding: 8px 32px 8px 32px;
-		text-align:center;
-		height: 100%;
-	}
-	main p{
-		margin: 0 0 0 0;
-		padding: 0 0 0 0;
-	}
-	footer{
-		padding: 10px;
-	}
-	footer p{
-		margin: 0 0 0 0;
-		text-align:center;
-	}
-	.subtitle{
-		padding-top: 128px;
-		font-size: 20px;
-		font-weight: 400;
-	}
-	ul{
-	list-style-type: none;
-	}
+/* General: Resetear márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo con gradiente suave */
+body {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+}
+
+/* Encabezado principal */
+header {
+    text-align: center;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Estilo de los encabezados secundarios */
+h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    text-decoration-color: #fff;
+    padding: 5px;
+    border: 2px solid #fff;
+    display: inline-block;
+}
+
+/* Menú de navegación: Estilo del desplegable */
+header nav details {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background-color: #ff6a00;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+header nav details summary {
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: 1rem;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #ee0979;
+    text-decoration: underline;
+}
+
+/* Sección principal */
+main {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Títulos de la sección */
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+/* Imágenes con estilo centrado */
+main img {
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+/* Estilo de los párrafos */
+p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+/* Estilo del pie de página */
+footer {
+    padding: 10px;
+    text-align: center;
+    background-color: #333;
+}
+
+footer p {
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* Lista sin estilo */
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Efecto hover sobre los elementos del menú */
+header nav li:hover {
+    text-decoration: underline;
+    transform: scale(1.1);
+}
+
+/* Transiciones suaves */
+a {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+a:hover {
+    color: #ee0979;
+    transform: scale(1.1);
+}
