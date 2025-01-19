@@ -10,6 +10,7 @@ body {
 }
 
 body.navidad {
+    background-image: url('navidad.webp');
     background-color: #f1f1f1;
     background-size: cover;
 }
