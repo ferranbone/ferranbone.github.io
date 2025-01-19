@@ -4,10 +4,15 @@
     box-sizing: border-box;
 }
 
-body {
+body.normal {
     background: linear-gradient(135deg, #ff6a00, #ee0979);
-    font-family: 'Arial', sans-serif;
     color: #fff;
+}
+
+body.navidad {
+    background-color: #f1f1f1;
+    background-size: cover;
+    color: red;
 }
 
 header {
