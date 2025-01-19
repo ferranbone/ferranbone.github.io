@@ -4,6 +4,12 @@
 	<title>Portada</title>
 	<link rel="stylesheet" href="style.css" />
 </head>
+	<script>
+        function tema() {
+            document.body.classList.toggle('normal');
+            document.body.classList.toggle('navidad');
+        }
+    </script>
 <body>
 	<header>
 		<h1>Ferran Boné</h1>
@@ -19,6 +25,7 @@
 			</ul>
 			</details>
 		</nav>
+		<button onclick="tema()">Cambiar Tema</button>
 	</header>
 <main>
 	<section id="introduccion">
