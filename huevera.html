@@ -20,9 +20,6 @@
                         let canvas_w = 800;
                         let canvas_h = 450;
 			let gameOver = false;
-			let tiempoRestante = 60;
-			let puntuacion = 0;
-			let tiempoTexto, puntuacionTexto;
 			let fondoMusica, gameOverMusica, sonidoAgarre, sonidoCorrecta, sonidoIncorrecta;
 
                         let config = {
@@ -60,10 +57,7 @@
                     function crea() {
 			fondo = this.add.image(canvas_w / 2, canvas_h / 2, 'fondo').setOrigin(.5, .5).setDisplaySize(canvas_w,canvas_h);
                 	cinta = this.add.image(150, canvas_h / 2, 'cinta').setOrigin(.7, .5).setScale(.5, canvas_h);
-			tiempoTexto = this.add.text(10, 10, 'Tiempo: ' + tiempoRestante, { fontSize: '20px', fill: '#FFF' });
-    			puntuacionTexto = this.add.text(10, 40, 'Puntos: ' + puntuacion, { fontSize: '20px', fill: '#FFF' });
-
-    			this.time.addEvent({ delay: 1000, callback: actualizarTiempo, callbackScope: this, loop: true });
+	
 			    
 			huevera_b = this.add.image(100, 100, 'huevera');
                         huevera_b.setScale(.5);
@@ -180,27 +174,16 @@
 			
 	                huevos.push(huevoNuevo);
             }
-			function mostrarGameOver(scene) {
-			    gameOver = true;
-			    fondoMusica.stop();
-			    gameOverMusica.play();
-			    huevos.forEach(h => h.destroy());
-			    scene.add.text(canvas_w / 2, canvas_h / 2, 'GAME OVER', { fontSize: '40px', fill: '#FFF' }).setOrigin(0.5);
-			    scene.add.text(canvas_w / 2, canvas_h / 2 + 50, 'Puntuación: ' + puntuacion, { fontSize: '30px', fill: '#FFF' }).setOrigin(0.5);
+			function darGameOver(scene) {
+				musicaFondo.stop();
+				gameOverFondo.play();
+				gameOver = true;
+				console.log("Game Over");
 			}
 
-                    
-			function actualizarTiempo() {
-			    if (gameOver) return;
-			    tiempoRestante--;
-			    actualizarHUD();
-			    if (tiempoRestante <= 0) mostrarGameOver(this);
-			}
-			
-			function actualizarHUD() {
-			    tiempoTexto.setText('Tiempo: ' + tiempoRestante);
-			    puntuacionTexto.setText('Puntos: ' + puntuacion);
-			}
+                    function actualiza() {
+                        
+                    }
                         
                 </script>
         </head>
