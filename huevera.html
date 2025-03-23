@@ -1,171 +1,114 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hueveras de Cartón 2</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
-    <script>
-        let canvas_w = 800;
-        let canvas_h = 450;
-        let gameOver = false;
-        let tiempoRestante = 60;
-        let puntuacion = 0;
-        let tiempoTexto, puntuacionTexto;
-        let fondoMusica, gameOverMusica, sonidoAgarre, sonidoCorrecto, sonidoIncorrecto;
-        let huevos = [];
+let canvas_w = 800;
+let canvas_h = 450;
+let gameOver = false;
+let tiempoRestante = 60;
+let puntuacion = 0;
+let tiempoTexto, puntuacionTexto;
+let fondoMusica, gameOverMusica, sonidoAgarre, sonidoCorrecta, sonidoIncorrecta;
+let huevos = [];
 
-        let config = {
-            type: Phaser.AUTO,
-            width: canvas_w,
-            height: canvas_h,
-            scene: {
-                preload: precarga,
-                create: crea,
-                update: actualiza
-            }
-        };
+function crea() {
+    this.add.image(canvas_w / 2, canvas_h / 2, 'fondo').setDisplaySize(canvas_w, canvas_h);
+    
+    tiempoTexto = this.add.text(10, 10, 'Tiempo: ' + tiempoRestante, { fontSize: '20px', fill: '#FFF' });
+    puntuacionTexto = this.add.text(10, 40, 'Puntos: ' + puntuacion, { fontSize: '20px', fill: '#FFF' });
 
-        let game = new Phaser.Game(config);
+    fondoMusica = this.sound.add('musica_fondo', { loop: true, volume: 0.5 });
+    gameOverMusica = this.sound.add('musica_gameover', { loop: false, volume: 0.8 });
+    sonidoAgarre = this.sound.add('sonido_agarre', { volume: 1 });
+    sonidoCorrecta = this.sound.add('sonido_correcto', { volume: 1 });
+    sonidoIncorrecta = this.sound.add('sonido_incorrecto', { volume: 1 });
 
-        function precarga() {
-            this.load.image('huevera', 'huevera.png');
-            this.load.image('huevo', 'huevo.png');
-            this.load.image('fondo', 'fondo.png');
-            this.load.image('cinta', 'cinta.png');
+    fondoMusica.play();
 
-            this.load.audio('musica_fondo', 'musica_fondo.mp3');
-            this.load.audio('musica_gameover', 'musica_gameover.mp3');
-            this.load.audio('sonido_agarre', 'agarre.mp3');
-            this.load.audio('sonido_correcto', 'correcto.mp3');
-            this.load.audio('sonido_incorrecto', 'incorrecto.mp3');
+    this.time.addEvent({ delay: 1000, callback: actualizarTiempo, callbackScope: this, loop: true });
+    this.time.addEvent({ delay: 2000, callback: generarHuevoAleatorio, callbackScope: this, loop: true });
+}
+
+function actualizarTiempo() {
+    if (gameOver) return;
+    tiempoRestante--;
+    actualizarHUD();
+    if (tiempoRestante <= 0) mostrarGameOver(this);
+}
+
+function actualizarHUD() {
+    tiempoTexto.setText('Tiempo: ' + tiempoRestante);
+    puntuacionTexto.setText('Puntos: ' + puntuacion);
+}
+
+function generarHuevoAleatorio() {
+    if (gameOver) return;
+    
+    let scene = this;
+    let huevoNuevo = this.add.image(Math.random() * (canvas_w - 50), -50, 'huevo');
+    huevoNuevo.setScale(0.5);
+    huevoNuevo.setInteractive({ draggable: true });
+    
+    let velocidad = Math.random() * 2 + 1;
+    huevoNuevo.cayendo = this.tweens.add({
+        targets: huevoNuevo,
+        y: canvas_h + 50,
+        duration: velocidad * 3000,
+        ease: 'Linear',
+        onComplete: function () {
+            if (!gameOver) huevoNuevo.destroy();
         }
+    });
 
-        function crea() {
-            this.add.image(canvas_w / 2, canvas_h / 2, 'fondo').setDisplaySize(canvas_w, canvas_h);
-            
-            tiempoTexto = this.add.text(10, 10, 'Tiempo: ' + tiempoRestante, { fontSize: '20px', fill: '#FFF' });
-            puntuacionTexto = this.add.text(10, 40, 'Puntos: ' + puntuacion, { fontSize: '20px', fill: '#FFF' });
+    huevoNuevo.on('dragstart', function () {
+        if (gameOver) return;
+        sonidoAgarre.play();
+        huevoNuevo.cayendo.pause();
+    });
 
-            fondoMusica = this.sound.add('musica_fondo', { loop: true, volume: 0.5 });
-            gameOverMusica = this.sound.add('musica_gameover', { loop: false, volume: 0.8 });
-            sonidoAgarre = this.sound.add('sonido_agarre', { volume: 1 });
-            sonidoCorrecto = this.sound.add('sonido_correcto', { volume: 1 });
-            sonidoIncorrecto = this.sound.add('sonido_incorrecto', { volume: 1 });
+    huevoNuevo.on('dragend', function (pointer) {
+        if (gameOver) return;
+        let correcto = false;
+        
+        let hueveras = [
+            { object: huevera_b, color: 0xFFFFFF },
+            { object: huevera_m, color: 0x8B4513 },
+            { object: huevera_d, color: 0xFFD700 }
+        ];
 
-            fondoMusica.play();
-
-            this.time.addEvent({ delay: 1000, callback: actualizarTiempo, callbackScope: this, loop: true });
-
-            this.time.addEvent({
-                delay: 2000,
-                callback: generarHuevoAleatorio,
-                callbackScope: this,
-                loop: true
-            });
-        }
-
-        function actualizarTiempo() {
-            if (gameOver) return;
-            tiempoRestante--;
-            actualizarHUD();
-            if (tiempoRestante <= 0) mostrarGameOver(this);
-        }
-
-        function actualizarHUD() {
-            tiempoTexto.setText('Tiempo: ' + tiempoRestante);
-            puntuacionTexto.setText('Puntos: ' + puntuacion);
-        }
-
-        function generarHuevoAleatorio() {
-            let scene = this;
-            let colores = ['blanco', 'marron', 'dorado'];
-            let colorSeleccionado = colores[Math.floor(Math.random() * colores.length)];
-
-            let huevoNuevo = this.add.image(Math.random() * (canvas_w - 50), -50, 'huevo');
-            huevoNuevo.setScale(0.5);
-
-            if (colorSeleccionado === 'blanco') {
-                huevoNuevo.setTint(Phaser.Display.Color.GetColor(255, 255, 255));
-            } else if (colorSeleccionado === 'marron') {
-                huevoNuevo.setTint(Phaser.Display.Color.GetColor(139, 69, 19));
-            } else {
-                huevoNuevo.setTint(Phaser.Display.Color.GetColor(255, 215, 0));
-            }
-
-            huevoNuevo.setInteractive({ draggable: true });
-            huevoNuevo.isDragging = false;
-
-            let velocidad = Math.random() * 2 + 1;
-
-            huevoNuevo.cayendo = this.tweens.add({
-                targets: huevoNuevo,
-                y: canvas_h + 50,
-                duration: velocidad * 3000,
-                ease: 'Linear',
-                onComplete: function () {
-                    if (!gameOver) {
-                        mostrarGameOver(scene);
-                    }
+        for (let i = 0; i < hueveras.length; i++) {
+            let huevera = hueveras[i];
+            if (Phaser.Geom.Intersects.RectangleToRectangle(huevera.object.getBounds(), huevoNuevo.getBounds())) {
+                if (huevoNuevo.tintTopLeft === huevera.color) {
+                    sonidoCorrecta.play();
+                    correcto = true;
+                    puntuacion += 10;
                     huevoNuevo.destroy();
                 }
-            });
-
-            huevoNuevo.on('dragstart', function () {
-                sonidoAgarre.play();
-                huevoNuevo.isDragging = true;
-                huevoNuevo.cayendo.paused = true;
-            });
-
-            huevoNuevo.on('dragend', function (pointer, object) {
-                let correcto = false;
-                let hueveras = [
-                    { object: huevera_b, color: 0xFFFFFF },
-                    { object: huevera_m, color: 0x8B4513 },
-                    { object: huevera_d, color: 0xFFD700 }
-                ];
-
-                for (let i = 0; i < hueveras.length; i++) {
-                    let huevera = hueveras[i];
-                    if (Phaser.Geom.Intersects.RectangleToRectangle(huevera.object.getBounds(), object.getBounds())) {
-                        if (object.tintTopLeft === huevera.color) {
-                            sonidoCorrecto.play();
-                            correcto = true;
-                            puntuacion += 10;
-                            object.x = huevera.object.x;
-                            object.y = huevera.object.y;
-                            object.setScale(0.4);
-                        }
-                    }
-                }
-
-                if (!correcto) {
-                    sonidoIncorrecto.play();
-                    puntuacion -= 5;
-                    object.setScale(1);
-                }
-
-                actualizarHUD();
-                object.isDragging = false;
-            });
-
-            huevos.push(huevoNuevo);
+            }
         }
 
-        function mostrarGameOver(scene) {
-            gameOver = true;
-            fondoMusica.stop();
-            gameOverMusica.play();
-            huevos.forEach(h => h.destroy());
-            scene.add.text(canvas_w / 2, canvas_h / 2, 'GAME OVER', { fontSize: '40px', fill: '#FFF' }).setOrigin(0.5);
-            scene.add.text(canvas_w / 2, canvas_h / 2 + 50, 'Puntuación: ' + puntuacion, { fontSize: '30px', fill: '#FFF' }).setOrigin(0.5);
+        if (!correcto) {
+            sonidoIncorrecta.play();
+            puntuacion -= 5;
         }
 
-        function actualiza() {
-            if (gameOver) return;
-        }
-    </script>
-</head>
-<body>
-</body>
-</html>
+        actualizarHUD();
+    });
+
+    huevos.push(huevoNuevo);
+}
+
+function mostrarGameOver(scene) {
+    gameOver = true;
+    fondoMusica.stop();
+    gameOverMusica.play();
+    
+    huevos.forEach(h => {
+        h.cayendo.stop();
+        h.disableInteractive();
+    });
+
+    scene.add.text(canvas_w / 2, canvas_h / 2, 'GAME OVER', { fontSize: '40px', fill: '#FFF' }).setOrigin(0.5);
+    scene.add.text(canvas_w / 2, canvas_h / 2 + 50, 'Puntuación: ' + puntuacion, { fontSize: '30px', fill: '#FFF' }).setOrigin(0.5);
+}
+
+function actualiza() {
+    if (gameOver) return;
+}
